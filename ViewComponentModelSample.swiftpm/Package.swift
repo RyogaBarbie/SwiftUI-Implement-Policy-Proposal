@@ -33,9 +33,16 @@ let package = Package(
             ]
         )
     ],
+    dependencies: [
+        .package(url: "https://github.com/Actomaton/Actomaton", branch: "main")
+    ],
     targets: [
         .executableTarget(
             name: "AppModule",
+            dependencies: [
+                .product(name: "Actomaton", package: "actomaton"),
+                .product(name: "ActomatonUI", package: "actomaton")
+            ],
             path: "."
         )
     ]

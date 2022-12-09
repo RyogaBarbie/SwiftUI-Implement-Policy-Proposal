@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/Actomaton/Actomaton",
       "state" : {
-        "revision" : "18725b4cbb2d9ce8ed670128d95ea3cb4b44426f",
-        "version" : "0.7.0"
+        "branch" : "main",
+        "revision" : "47a3b125a847a1b92cc1a37914a3e61d171cbea2"
       }
     },
     {
