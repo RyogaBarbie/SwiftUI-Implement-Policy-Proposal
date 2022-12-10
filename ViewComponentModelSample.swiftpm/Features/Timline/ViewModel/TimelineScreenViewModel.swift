@@ -2,7 +2,9 @@ import Actomaton
 import ActomatonUI
 
 enum TimelineScreenViewModel {
-    struct State: Sendable, Equatable {}
+    struct State: Sendable, Equatable {
+        let tweetItemModels: [TweetItemModel]
+    }
 
     enum Action: Sendable {}
 
