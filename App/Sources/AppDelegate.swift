@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import SwiftUI
+import Timeline
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,8 +17,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow()
 
-        let vc = UIHostingController(rootView: ContentView())
-        window?.rootViewController = vc
+        let tabbarController = BaseTabBarController()
+
+        window?.rootViewController = tabbarController
+
         window?.makeKeyAndVisible()
         return true
     }

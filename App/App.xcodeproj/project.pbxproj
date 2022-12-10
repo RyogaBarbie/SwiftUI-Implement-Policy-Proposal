@@ -3,12 +3,15 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		11A29977382725FC272B253A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08790D56E6532CF87DC5EAF5 /* ContentView.swift */; };
+		1CA998C627766237F2232BEB /* Design in Frameworks */ = {isa = PBXBuildFile; productRef = 6A8E1833C1ABF017765C4A24 /* Design */; };
+		646655A38FE7E5FD98565360 /* BaseTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4070595EFFB5106D9B325F /* BaseTabBarController.swift */; };
 		8C969DF3CAF763FFE4B79252 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC33CB686ACF317A895B9BB7 /* Assets.xcassets */; };
+		95C38BB4FB56187972591E16 /* Timeline in Frameworks */ = {isa = PBXBuildFile; productRef = A286B40D09306F12DC93541E /* Timeline */; };
 		F020EE47FD9AFF29CB232A2C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3698F892C87398A1AB1FF12E /* AppDelegate.swift */; };
 /* End PBXBuildFile section */
 
@@ -16,9 +19,22 @@
 		08790D56E6532CF87DC5EAF5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		3698F892C87398A1AB1FF12E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		49D88A349FD70A9153DD2C03 /* App.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = App.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		A9F90F66870AE106153BC8BF /* Libraries */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Libraries; path = ../Libraries; sourceTree = SOURCE_ROOT; };
+		CB4070595EFFB5106D9B325F /* BaseTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTabBarController.swift; sourceTree = "<group>"; };
+		D1D81600DB6A407C76BE2650 /* Package */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Package; path = ../Package; sourceTree = SOURCE_ROOT; };
 		EC33CB686ACF317A895B9BB7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BC0DC3536DED64E0E8C9923E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1CA998C627766237F2232BEB /* Design in Frameworks */,
+				95C38BB4FB56187972591E16 /* Timeline in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		4102E3E068508DD683953C7D = {
@@ -35,6 +51,7 @@
 			children = (
 				3698F892C87398A1AB1FF12E /* AppDelegate.swift */,
 				EC33CB686ACF317A895B9BB7 /* Assets.xcassets */,
+				CB4070595EFFB5106D9B325F /* BaseTabBarController.swift */,
 				08790D56E6532CF87DC5EAF5 /* ContentView.swift */,
 			);
 			path = Sources;
@@ -43,7 +60,7 @@
 		A09E2501204CB86B4B2B6562 /* Packages */ = {
 			isa = PBXGroup;
 			children = (
-				A9F90F66870AE106153BC8BF /* Libraries */,
+				D1D81600DB6A407C76BE2650 /* Package */,
 			);
 			name = Packages;
 			sourceTree = SOURCE_ROOT;
@@ -65,12 +82,17 @@
 			buildPhases = (
 				B77F0AF073564580D75A2CF1 /* Sources */,
 				37BFF6A8CB5CC7FA21AD3FA3 /* Resources */,
+				BC0DC3536DED64E0E8C9923E /* Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = App;
+			packageProductDependencies = (
+				6A8E1833C1ABF017765C4A24 /* Design */,
+				A286B40D09306F12DC93541E /* Timeline */,
+			);
 			productName = App;
 			productReference = 49D88A349FD70A9153DD2C03 /* App.app */;
 			productType = "com.apple.product-type.application";
@@ -82,8 +104,6 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 1200;
-				TargetAttributes = {
-				};
 			};
 			buildConfigurationList = B3FD05C59F197F398A0B04AB /* Build configuration list for PBXProject "App" */;
 			compatibilityVersion = "Xcode 11.0";
@@ -119,6 +139,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F020EE47FD9AFF29CB232A2C /* AppDelegate.swift in Sources */,
+				646655A38FE7E5FD98565360 /* BaseTabBarController.swift in Sources */,
 				11A29977382725FC272B253A /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -327,6 +348,17 @@
 			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		6A8E1833C1ABF017765C4A24 /* Design */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Design;
+		};
+		A286B40D09306F12DC93541E /* Timeline */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Timeline;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 6B590BF25178DC7D824D09CE /* Project object */;
 }

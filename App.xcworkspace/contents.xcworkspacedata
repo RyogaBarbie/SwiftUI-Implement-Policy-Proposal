@@ -5,6 +5,6 @@
       location = "group:App/App.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:Libraries">
+      location = "group:Package">
    </FileRef>
 </Workspace>

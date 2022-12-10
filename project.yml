@@ -31,27 +31,16 @@ targets:
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: y.ryoga.App
-    # dependencies:
-      # - package: Package
-      #   product: AppCore
-      # - package: Package
-      #   product: API
-      # - package: Package
-      #   product: UserDefaults
-      # - package: Package
-      #   product: FeatureInterfaces
+    dependencies:
+    # Core
 
-      # - package: Package
-      #   product: Home
-      # - package: Package
-      #   product: Detail
-      # - package: Package
-      #   product: Profile
-      # - package: Package
-      #   product: Setting
+    # Design
+      - package: Package
+        product: Design
 
-      # - package: Package
-      #   product: FeatureProvider
+    # Feature
+      - package: Package
+        product: Timeline
 
 
 schemeTemplates:
@@ -93,5 +82,5 @@ schemes:
       config: Release
 
 packages:
-  Libraries:
-    path: Libraries
+  Package:
+    path: Package
