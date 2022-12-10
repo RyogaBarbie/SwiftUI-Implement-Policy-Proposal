@@ -1,0 +1,97 @@
+name: App
+
+settings:
+  base:
+    IPHONEOS_DEPLOYMENT_TARGET: 16.0
+  configs:
+    Debug:
+      SWIFT_ACTIVE_COMPILATION_CONDITIONS: DEBUG
+    Release:
+      SWIFT_ACTIVE_COMPILATION_CONDITIONS: RELEASE
+    Test:
+      SWIFT_ACTIVE_COMPILATION_CONDITIONS: TEST  
+
+options:
+  bundleIdPrefix: y.ryoga
+  deploymentTarget:
+    iOS: 16.0
+
+configs:
+  Debug: debug
+  Release: release
+  Test: test
+
+targets:
+  App:
+    type: application
+    platform: iOS
+    sources:
+      - path: ./App/Sources
+        excludes: [Info.plist]
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: y.ryoga.App
+    # dependencies:
+      # - package: Package
+      #   product: AppCore
+      # - package: Package
+      #   product: API
+      # - package: Package
+      #   product: UserDefaults
+      # - package: Package
+      #   product: FeatureInterfaces
+
+      # - package: Package
+      #   product: Home
+      # - package: Package
+      #   product: Detail
+      # - package: Package
+      #   product: Profile
+      # - package: Package
+      #   product: Setting
+
+      # - package: Package
+      #   product: FeatureProvider
+
+
+schemeTemplates:
+  Scheme:
+    build:
+      targets:
+        App: all
+
+schemes:
+  App-Debug:
+    templates:
+      - Scheme
+    build:
+      config: Debug
+    run:
+      config: Debug
+    test:
+      config: Test
+    profile:
+      config: Debug
+    analyze:
+      config: Debug
+    archive:
+      config: Debug
+  App-Release:
+    templates:
+      - Scheme
+    build:
+      config: Release
+    run:
+      config: Release
+    test:
+      config: Test
+    profile:
+      config: Release
+    analyze:
+      config: Release
+    archive:
+      config: Release
+
+packages:
+  Libraries:
+    path: Libraries
