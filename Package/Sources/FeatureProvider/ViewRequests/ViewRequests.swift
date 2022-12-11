@@ -7,6 +7,10 @@
 
 import Foundation
 
-struct SearchRepositoryViewRequest {}
+public struct TimelineViewRequest {
+    public init() {}
+}
 
-struct StaredRepositoryViewRequest {}
+public struct EdiitProfileViewRequest {
+    public init() {}
+}

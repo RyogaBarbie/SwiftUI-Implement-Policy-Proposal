@@ -10,7 +10,12 @@ let package = Package(
     name: "Libraries",
     platforms: [.iOS(.v16)],
     products: [
+        // Core
+        .library(name: "FeatureProvider", targets: ["FeatureProvider"]),
+        // Design
         .library(name: "Design", targets: ["Design"]),
+
+        // Features
         .library(name: "Timeline", targets: ["Timeline"]),
         .library(name: "EditProfile", targets: ["EditProfile"]),
         // // AppCore

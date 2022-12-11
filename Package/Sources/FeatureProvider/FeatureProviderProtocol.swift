@@ -9,12 +9,12 @@ import Foundation
 import UIKit
 
 @MainActor
-protocol FeatureProviderProtocol {
+public protocol FeatureProviderProtocol {
     func build(
-        _ request: SearchRepositoryViewRequest
+        _ request: TimelineViewRequest
     ) -> UIViewController
     
     func build(
-        _ request: StaredRepositoryViewRequest
+        _ request: EdiitProfileViewRequest
     ) -> UIViewController
 }

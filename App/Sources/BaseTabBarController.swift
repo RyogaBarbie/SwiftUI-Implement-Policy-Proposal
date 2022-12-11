@@ -2,18 +2,15 @@ import Foundation
 import UIKit
 import Timeline
 import Design
+import FeatureProvider
 
 class BaseTabBarController: UITabBarController {
-//    private let featureProvider: FeatureProviderProtocol
-//
-//    init(
-//        featureProvider: FeatureProviderProtocol
-//    ) {
-//        self.featureProvider = featureProvider
-//        super.init(nibName: nil, bundle: nil)
-//    }
-    
-    init() {
+    private let featureProvider: FeatureProviderProtocol
+
+    init(
+        featureProvider: FeatureProviderProtocol
+    ) {
+        self.featureProvider = featureProvider
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -28,13 +25,14 @@ class BaseTabBarController: UITabBarController {
     }
     
     private func setup() {
-        let tweetVc = TimelineScreenBuilder.build()
+        let tweetVc = featureProvider.build(TimelineViewRequest())
         tweetVc.setupTabBarItem(title: "ホーム", image: UIImage(systemName: "house.fill"))
+        let nav = UINavigationController(rootViewController: tweetVc)
 
-        let tweetVc2 = TimelineScreenBuilder.build()
+        let tweetVc2 = featureProvider.build(EdiitProfileViewRequest())
         tweetVc2.setupTabBarItem(title: "プロフィール変更", image: UIImage(systemName: "person.crop.circle"))
-
+        let nav2 = UINavigationController(rootViewController: tweetVc2)
         
-        setViewControllers([tweetVc, tweetVc2], animated: false)
+        setViewControllers([nav, nav2], animated: false)
     }
 }

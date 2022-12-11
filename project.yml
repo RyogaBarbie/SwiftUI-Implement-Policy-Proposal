@@ -33,6 +33,8 @@ targets:
         PRODUCT_BUNDLE_IDENTIFIER: y.ryoga.App
     dependencies:
     # Core
+      - package: Package
+        product: FeatureProvider
 
     # Design
       - package: Package
@@ -41,6 +43,8 @@ targets:
     # Feature
       - package: Package
         product: Timeline
+      - package: Package
+        product: EditProfile
 
 
 schemeTemplates:
