@@ -15,15 +15,29 @@ struct TimelineScreenView: View {
                 TweetList(tweetItemModels: viewStore.state.tweetItemModels)
             }
             .overlay(alignment: .bottomTrailing) {
-                TweetButtonView()
+                TweetButtonView(
+                    isPresentedTweetView: viewStore.state.isPresentedTweetView,
+                    didTapClosure: { store.send(.setIsPresentedTweetView(true)) }
+                )
                     .padding([.bottom, .trailing], 16)
+            }
+            .sheet(isPresented: .init(get: {
+                viewStore.state.isPresentedTweetView
+            }, set: { bool in
+                store.send(.setIsPresentedTweetView(bool))
+            })) {
+                Text("ツイート内容入力")
             }
         }
     }
 
     struct TweetButtonView: View {
+        let isPresentedTweetView: Bool
+        let didTapClosure: () -> Void
         var body: some View {
-            Button {} label: {
+            Button {
+                didTapClosure()
+            } label: {
                 ZStack(alignment: .center) {
                     Color.cyan
                         .frame(width: 50, height: 50)

@@ -3,10 +3,13 @@ import ActomatonUI
 
 enum TimelineScreenViewModel {
     struct State: Sendable, Equatable {
+        var isPresentedTweetView: Bool = false
         let tweetItemModels: [TweetItemModel]
     }
 
-    enum Action: Sendable {}
+    enum Action: Sendable {
+        case setIsPresentedTweetView(Bool)
+    }
 
     enum RouteType: Sendable {}
 
@@ -18,6 +21,12 @@ enum TimelineScreenViewModel {
     typealias Store = ActomatonUI.Store<TimelineScreenViewModel.Action, TimelineScreenViewModel.State, TimelineScreenViewModel._Environment>
 
     static func reducer() -> Reducer<Action, State, Environment> {
-        .empty
+        .init { action, state, environment in
+            switch action {
+            case let .setIsPresentedTweetView(bool):
+                state.isPresentedTweetView = bool
+                return .empty
+            }
+        }
     }
 }
