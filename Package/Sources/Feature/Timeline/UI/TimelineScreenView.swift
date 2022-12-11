@@ -14,10 +14,30 @@ struct TimelineScreenView: View {
             ScrollView {
                 TweetList(tweetItemModels: viewStore.state.tweetItemModels)
             }
-            
+            .overlay(alignment: .bottomTrailing) {
+                TweetButtonView()
+                    .padding([.bottom, .trailing], 16)
+            }
+        }
+    }
+
+    struct TweetButtonView: View {
+        var body: some View {
+            Button {} label: {
+                ZStack(alignment: .center) {
+                    Color.cyan
+                        .frame(width: 50, height: 50)
+                        .cornerRadius(50)
+                    Image(systemName: "plus")
+                        .resizable()
+                        .frame(width: 15, height: 15)
+                        .tint(.white)
+                }
+            }
         }
     }
 }
+
 struct TweetList: View {
     let tweetItemModels: [TweetItemModel]
 
