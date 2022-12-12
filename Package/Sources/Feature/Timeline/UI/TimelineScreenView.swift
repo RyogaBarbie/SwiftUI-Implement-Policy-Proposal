@@ -11,22 +11,29 @@ struct TimelineScreenView: View {
 
     var body: some View {
         WithViewStore(store) { viewStore in
-            ScrollView {
-                TweetList(tweetItemModels: viewStore.state.tweetItemModels)
-            }
-            .overlay(alignment: .bottomTrailing) {
-                TweetButtonView(
-                    isPresentedTweetView: viewStore.state.isPresentedTweetView,
-                    didTapClosure: { store.send(.setIsPresentedTweetView(true)) }
-                )
-                    .padding([.bottom, .trailing], 16)
-            }
-            .sheet(isPresented: .init(get: {
-                viewStore.state.isPresentedTweetView
-            }, set: { bool in
-                store.send(.setIsPresentedTweetView(bool))
-            })) {
-                Text("ツイート内容入力")
+            if viewStore.state.isLoadingFetchTweets {
+                ProgressView()
+                    .onAppear {
+                        store.send(.fetchTweets)
+                    }
+            } else {
+                ScrollView {
+                    TweetList(tweetItemModels: viewStore.state.tweetItemModels)
+                }
+                .overlay(alignment: .bottomTrailing) {
+                    TweetButtonView(
+                        isPresentedTweetView: viewStore.state.isPresentedTweetView,
+                        didTapClosure: { store.send(.setIsPresentedTweetView(true)) }
+                    )
+                        .padding([.bottom, .trailing], 16)
+                }
+                .sheet(isPresented: .init(get: {
+                    viewStore.state.isPresentedTweetView
+                }, set: { bool in
+                    store.send(.setIsPresentedTweetView(bool))
+                })) {
+                    Text("ツイート内容入力")
+                }
             }
         }
     }
@@ -70,11 +77,11 @@ struct TweetItemView: View {
 
     var body: some View {
         HStack(alignment: .top) {
-            UserIconView(imageName: tweetItemModel.user.imageName)
+            UserIconView(imageName: tweetItemModel.tweet.user.imageName)
             VStack(alignment: .leading) {
                 UserSectionView(
-                    userName: tweetItemModel.user.name,
-                    userId: tweetItemModel.user.id,
+                    userName: tweetItemModel.tweet.user.name,
+                    userId: tweetItemModel.tweet.user.id,
                     postedAt: tweetItemModel.tweet.postedAt
                 )
                 Spacer().frame(height: 5)

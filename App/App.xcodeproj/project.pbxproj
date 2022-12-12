@@ -8,13 +8,15 @@
 
 /* Begin PBXBuildFile section */
 		11A29977382725FC272B253A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 08790D56E6532CF87DC5EAF5 /* ContentView.swift */; };
-		1C2828AB6F056A7680FC41D9 /* Timeline in Frameworks */ = {isa = PBXBuildFile; productRef = A286B40D09306F12DC93541E /* Timeline */; };
+		1C2828AB6F056A7680FC41D9 /* API in Frameworks */ = {isa = PBXBuildFile; productRef = FE0F176D7EC89753B626365D /* API */; };
 		1CA998C627766237F2232BEB /* FeatureProvider in Frameworks */ = {isa = PBXBuildFile; productRef = DF01F4CCF936ADE3EA3D3953 /* FeatureProvider */; };
+		3EF75B20CDF46D5CBCADEDF8 /* EditProfile in Frameworks */ = {isa = PBXBuildFile; productRef = 81B9282D7D2EA64D74500C9E /* EditProfile */; };
 		3F940AD9CA2C0D1D3F7D1EB0 /* FeatureProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10816259D0651C9400A68E2C /* FeatureProvider.swift */; };
 		646655A38FE7E5FD98565360 /* BaseTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4070595EFFB5106D9B325F /* BaseTabBarController.swift */; };
 		8C969DF3CAF763FFE4B79252 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC33CB686ACF317A895B9BB7 /* Assets.xcassets */; };
-		95C38BB4FB56187972591E16 /* DesignCore in Frameworks */ = {isa = PBXBuildFile; productRef = 4FE3C5FF80AB8D8BCD7FAB1C /* DesignCore */; };
-		964C752F52C50D0DA03BAA47 /* EditProfile in Frameworks */ = {isa = PBXBuildFile; productRef = 81B9282D7D2EA64D74500C9E /* EditProfile */; };
+		95C38BB4FB56187972591E16 /* Model in Frameworks */ = {isa = PBXBuildFile; productRef = 2D3B7599A94EFB00F8B31C72 /* Model */; };
+		964C752F52C50D0DA03BAA47 /* DesignCore in Frameworks */ = {isa = PBXBuildFile; productRef = 4FE3C5FF80AB8D8BCD7FAB1C /* DesignCore */; };
+		D3595F6B764F0A8C5C5B394C /* Timeline in Frameworks */ = {isa = PBXBuildFile; productRef = A286B40D09306F12DC93541E /* Timeline */; };
 		F020EE47FD9AFF29CB232A2C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3698F892C87398A1AB1FF12E /* AppDelegate.swift */; };
 /* End PBXBuildFile section */
 
@@ -34,9 +36,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				1CA998C627766237F2232BEB /* FeatureProvider in Frameworks */,
-				95C38BB4FB56187972591E16 /* DesignCore in Frameworks */,
-				1C2828AB6F056A7680FC41D9 /* Timeline in Frameworks */,
-				964C752F52C50D0DA03BAA47 /* EditProfile in Frameworks */,
+				95C38BB4FB56187972591E16 /* Model in Frameworks */,
+				1C2828AB6F056A7680FC41D9 /* API in Frameworks */,
+				964C752F52C50D0DA03BAA47 /* DesignCore in Frameworks */,
+				D3595F6B764F0A8C5C5B394C /* Timeline in Frameworks */,
+				3EF75B20CDF46D5CBCADEDF8 /* EditProfile in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -98,6 +102,8 @@
 			name = App;
 			packageProductDependencies = (
 				DF01F4CCF936ADE3EA3D3953 /* FeatureProvider */,
+				2D3B7599A94EFB00F8B31C72 /* Model */,
+				FE0F176D7EC89753B626365D /* API */,
 				4FE3C5FF80AB8D8BCD7FAB1C /* DesignCore */,
 				A286B40D09306F12DC93541E /* Timeline */,
 				81B9282D7D2EA64D74500C9E /* EditProfile */,
@@ -362,6 +368,10 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		2D3B7599A94EFB00F8B31C72 /* Model */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Model;
+		};
 		4FE3C5FF80AB8D8BCD7FAB1C /* DesignCore */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = DesignCore;
@@ -377,6 +387,10 @@
 		DF01F4CCF936ADE3EA3D3953 /* FeatureProvider */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = FeatureProvider;
+		};
+		FE0F176D7EC89753B626365D /* API */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = API;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

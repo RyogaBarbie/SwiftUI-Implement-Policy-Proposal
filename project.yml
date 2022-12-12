@@ -35,6 +35,10 @@ targets:
     # Core
       - package: Package
         product: FeatureProvider
+      - package: Package
+        product: Model
+      - package: Package
+        product: API
 
     # Design
       - package: Package
