@@ -3,15 +3,13 @@ import Actomaton
 import ActomatonUI
 
 struct EditProfileScreenView: View {
-    private let store: EditProfileScreenViewModel.Store
+    private let vm: EditProfileScreenViewModel
     
-    init(store: EditProfileScreenViewModel.Store) {
-        self.store = store
+    init(vm: EditProfileScreenViewModel) {
+        self.vm = vm
     }
     
     var body: some View {
-        WithViewStore(store) { viewStore in
-            Text("プロフィール変更")
-        }
+        Text("プロフィール変更")
     }
 }
