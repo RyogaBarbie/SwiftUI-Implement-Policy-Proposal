@@ -95,6 +95,7 @@ enum TimelineScreenViewModel {
                 state.tweetItemModels[index].isLoadingUserImage = true
 
                 return Effect {
+                    // 本来はAPIを叩くような想定
                     let randomSec = Int.random(in: 0...5)
                     _ = try! await Task.sleep(nanoseconds: UInt64(1_000_000_000 * randomSec))
                     return .setImage(tweetItemModel)
