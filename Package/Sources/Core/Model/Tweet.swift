@@ -35,7 +35,7 @@ extension Tweet {
             .tomoya(), .tomoya(),
             .tori(), .tori(),
             .ryoma(), .ryoma()
-        ].shuffled()
+        ].shuffled().shuffled().shuffled()
     }
 }
 

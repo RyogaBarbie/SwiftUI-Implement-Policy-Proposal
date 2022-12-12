@@ -11,14 +11,17 @@ struct TimelineScreenView: View {
 
     var body: some View {
         WithViewStore(store) { viewStore in
-            if viewStore.state.isLoadingFetchTweets {
+            if viewStore.state.isLoadingFetchTweets, viewStore.state.tweetItemModels.isEmpty {
                 ProgressView()
                     .onAppear {
-                        store.send(.fetchTweets)
+                        store.send(.onAppear)
                     }
             } else {
                 ScrollView {
                     TweetList(tweetItemModels: viewStore.state.tweetItemModels)
+                }
+                .refreshable {
+                    store.send(.refresh)
                 }
                 .overlay(alignment: .bottomTrailing) {
                     TweetButtonView(

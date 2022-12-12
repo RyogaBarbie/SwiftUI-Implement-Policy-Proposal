@@ -13,7 +13,8 @@ enum TimelineScreenViewModel {
     enum Action: Sendable {
         case setIsPresentedTweetView(Bool)
         case onAppear
-        case fetchTweets
+        case refresh
+        case _fetchTweets
         case _convertTweetItemModelAndSet([Tweet])
     }
 
@@ -35,11 +36,11 @@ enum TimelineScreenViewModel {
                 state.isPresentedTweetView = bool
                 return .empty
 
-            case .onAppear:
+            case .onAppear, .refresh:
                 state.isLoadingFetchTweets = true
-                return Effect.nextAction(.fetchTweets)
+                return Effect.nextAction(._fetchTweets)
 
-            case .fetchTweets:
+            case ._fetchTweets:
                 return Effect {
                     let tweets = await routeEnvironment.environment.apiClient.fetchTweets()
                     return ._convertTweetItemModelAndSet(tweets)
