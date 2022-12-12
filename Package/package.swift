@@ -18,13 +18,6 @@ let package = Package(
         // Features
         .library(name: "Timeline", targets: ["Timeline"]),
         .library(name: "EditProfile", targets: ["EditProfile"]),
-        // // AppCore
-        // .library(name: "AppCore", type: .static, targets: ["API", "UserDefaults", "FeatureInterfaces"]),
-        // .library(name: "API", type: .static, targets: ["API"]),
-        // .library(name: "UserDefaults", type: .static, targets: ["UserDefaults"]),
-        // .library(name: "FeatureInterfaces", type: .static, targets: ["FeatureInterfaces"]),
-        // // FeatureProvider
-        // .library(name: "FeatureProvider", type: .static, targets: ["FeatureProvider"]),
     ],
     dependencies: [
         // .package(name: "APIKit", url: "https://github.com/ishkawa/APIKit", from: "5.2.0")
@@ -42,13 +35,6 @@ let package = Package(
         // Features
         .target(name: "Timeline", dependencies: [Actomaton, ActomatonUI, "Model"], path: "Sources/Feature/Timeline"),
         .target(name: "EditProfile", dependencies: [Actomaton, ActomatonUI, "Model"], path: "Sources/Feature/EditProfile"),
-         // FeatureProvider
-        // .target(
-        //     name: "FeatureProvider",
-        //     dependencies: [
-        //         "API", "UserDefaults", "FeatureInterfaces", "Home", "Detail", "Profile", "Setting"
-        //     ]
-        // ),
     ]
 )
 
