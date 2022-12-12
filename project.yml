@@ -38,7 +38,7 @@ targets:
 
     # Design
       - package: Package
-        product: Design
+        product: DesignCore
 
     # Feature
       - package: Package

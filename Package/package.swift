@@ -13,7 +13,7 @@ let package = Package(
         // Core
         .library(name: "FeatureProvider", targets: ["FeatureProvider"]),
         // Design
-        .library(name: "Design", targets: ["Design"]),
+        .library(name: "DesignCore", targets: ["DesignCore"]),
 
         // Features
         .library(name: "Timeline", targets: ["Timeline"]),
@@ -25,12 +25,12 @@ let package = Package(
     ],
     targets: [
         // Core
-        .target(name: "Model"),
-        .target(name: "FeatureInterface"),
-        .target(name: "FeatureProvider", dependencies: ["Model", "FeatureInterface"]),
+        .target(name: "Model", path: "Sources/Core/Model"),
+        .target(name: "FeatureInterface", path: "Sources/Core/FeatureInterface"),
+        .target(name: "FeatureProvider", dependencies: ["Model", "FeatureInterface"], path: "Sources/Core/FeatureProvider"),
 
         // Design
-        .target(name: "Design"),
+        .target(name: "DesignCore"),
         
         // Features
         .target(name: "Timeline", dependencies: [Actomaton, ActomatonUI, "Model"], path: "Sources/Feature/Timeline"),

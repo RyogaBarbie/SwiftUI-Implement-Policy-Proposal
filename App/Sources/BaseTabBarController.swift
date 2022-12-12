@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 import Timeline
-import Design
+import DesignCore
 import FeatureProvider
 
 class BaseTabBarController: UITabBarController {

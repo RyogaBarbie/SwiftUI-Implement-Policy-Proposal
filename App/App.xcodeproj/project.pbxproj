@@ -13,7 +13,7 @@
 		3F940AD9CA2C0D1D3F7D1EB0 /* FeatureProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10816259D0651C9400A68E2C /* FeatureProvider.swift */; };
 		646655A38FE7E5FD98565360 /* BaseTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4070595EFFB5106D9B325F /* BaseTabBarController.swift */; };
 		8C969DF3CAF763FFE4B79252 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EC33CB686ACF317A895B9BB7 /* Assets.xcassets */; };
-		95C38BB4FB56187972591E16 /* Design in Frameworks */ = {isa = PBXBuildFile; productRef = 6A8E1833C1ABF017765C4A24 /* Design */; };
+		95C38BB4FB56187972591E16 /* DesignCore in Frameworks */ = {isa = PBXBuildFile; productRef = 4FE3C5FF80AB8D8BCD7FAB1C /* DesignCore */; };
 		964C752F52C50D0DA03BAA47 /* EditProfile in Frameworks */ = {isa = PBXBuildFile; productRef = 81B9282D7D2EA64D74500C9E /* EditProfile */; };
 		F020EE47FD9AFF29CB232A2C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3698F892C87398A1AB1FF12E /* AppDelegate.swift */; };
 /* End PBXBuildFile section */
@@ -34,7 +34,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1CA998C627766237F2232BEB /* FeatureProvider in Frameworks */,
-				95C38BB4FB56187972591E16 /* Design in Frameworks */,
+				95C38BB4FB56187972591E16 /* DesignCore in Frameworks */,
 				1C2828AB6F056A7680FC41D9 /* Timeline in Frameworks */,
 				964C752F52C50D0DA03BAA47 /* EditProfile in Frameworks */,
 			);
@@ -98,7 +98,7 @@
 			name = App;
 			packageProductDependencies = (
 				DF01F4CCF936ADE3EA3D3953 /* FeatureProvider */,
-				6A8E1833C1ABF017765C4A24 /* Design */,
+				4FE3C5FF80AB8D8BCD7FAB1C /* DesignCore */,
 				A286B40D09306F12DC93541E /* Timeline */,
 				81B9282D7D2EA64D74500C9E /* EditProfile */,
 			);
@@ -362,9 +362,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		6A8E1833C1ABF017765C4A24 /* Design */ = {
+		4FE3C5FF80AB8D8BCD7FAB1C /* DesignCore */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = Design;
+			productName = DesignCore;
 		};
 		81B9282D7D2EA64D74500C9E /* EditProfile */ = {
 			isa = XCSwiftPackageProductDependency;
