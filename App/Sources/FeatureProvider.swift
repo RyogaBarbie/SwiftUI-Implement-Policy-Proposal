@@ -15,7 +15,7 @@ class FeatureProvider: FeatureProviderProtocol {
     func build(
         _ request: EdiitProfileViewRequest
     ) -> UIViewController {
-        EditProfileScreenBuilder.build()
+        EditProfileScreenBuilder.build(notificationCenter: NotificationCenter.default)
     }
 }
 

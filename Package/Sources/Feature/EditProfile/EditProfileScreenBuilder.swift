@@ -2,20 +2,21 @@ import Foundation
 import UIKit
 
 public enum EditProfileScreenBuilder {
-    @MainActor public static func build() -> UIViewController {
-        let vm = EditProfileScreenViewModel(state: .init(), environment: .init())
-//        let store = EditProfileScreenViewModel.RouteStore(
-//            state: .init(),
-//            reducer: EditProfileScreenViewModel.reducer(),
-//            environment: .init()
-//        )
+    @MainActor public static func build(
+        notificationCenter: NotificationCenter
+    ) -> UIViewController {
+        let vm = EditProfileScreenViewModel(state: .init(), environment: .init(notificationCenter: notificationCenter))
         let view = EditProfileScreenView(vm: vm)
         let hostingVc = EditProfileScreenViewHostingViewController(view, viewModel: vm)
-//        let hostingVc = EditProfileScreenViewHostingViewController(
-//            store: store.noSendRoute
-//        ) { store in
-//                EditProfileScreenView(store: store)
-//        }
+
+        Task { @MainActor in
+            for await notification in notificationCenter.notifications(named: Notification.Name.editProfileRouteType, object: nil) {
+                if case .myProfile = notification.object as? EditProfileScreenViewModel.RouteType {
+                    // impl 画面遷移
+                }
+            }
+        }
+
         return hostingVc
     }
 }
