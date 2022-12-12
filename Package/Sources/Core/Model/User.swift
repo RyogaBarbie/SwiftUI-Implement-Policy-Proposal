@@ -40,7 +40,7 @@ extension User {
         User(id: "senritsutareme", name: "中村倫也", introduction: "トップコートランド　https://sp.tcland.jp", birthDay: nil, imageName: "tomoya")
     }
     public static func tori() -> User {
-        User(id: "MTorioofficial", name: "松坂桃李", introduction: "松坂桃李オフィシャルTwitter", birthDay: nil, imageName: "tori")
+        User(id: "MToriofficial", name: "松坂桃李", introduction: "松坂桃李オフィシャルTwitter", birthDay: nil, imageName: "tori")
     }
     public static func ryoma() -> User {
         User(id: "takeuchi_ryoma", name: "竹内涼真", introduction: "竹内涼真オフィシャルアカウント ホリプロ所属 【竹内涼真携帯サイト】http://goo.gl/Kfd42k", birthDay: "4月26日", imageName: "ryoma")

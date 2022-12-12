@@ -1,3 +1,4 @@
+import Foundation
 import Actomaton
 import ActomatonUI
 import API
@@ -18,9 +19,12 @@ enum TimelineScreenViewModel {
         case _convertTweetItemModelAndSet([Tweet])
         case didTapRetweet(TweetItemModel)
         case didTapLike(TweetItemModel)
+        case didTapShare(TweetItemModel)
     }
 
-    enum RouteType: Sendable {}
+    enum RouteType: Sendable {
+        case showShareActivity(String, URL)
+    }
 
     struct _Environment: Sendable {
         let apiClient: APIClientProtocol
@@ -57,7 +61,7 @@ enum TimelineScreenViewModel {
                 // 本来はAPIを叩く
                 guard let index = state.tweetItemModels.firstIndex(where: { model in
                     model == tweetItemModel
-                }) else { return .empty}
+                }) else { return .empty }
 
                 state.tweetItemModels[index].tweet.isRetweet.toggle()
                 return .empty
@@ -66,10 +70,20 @@ enum TimelineScreenViewModel {
                 // 本来はAPIを叩く
                 guard let index = state.tweetItemModels.firstIndex(where: { model in
                     model == tweetItemModel
-                }) else { return .empty}
+                }) else { return .empty }
 
                 state.tweetItemModels[index].tweet.isLike.toggle()
                 return .empty
+
+            case let .didTapShare(tweetItemModel):
+                return Effect.fireAndForget {
+                    routeEnvironment.sendRoute(
+                        .showShareActivity(
+                            "\(tweetItemModel.tweet.user.name)さんのツイート",
+                            URL(string: "https://twitter.com/\(tweetItemModel.tweet.user.id)")!
+                        )
+                    )
+                }
 
             }
         }

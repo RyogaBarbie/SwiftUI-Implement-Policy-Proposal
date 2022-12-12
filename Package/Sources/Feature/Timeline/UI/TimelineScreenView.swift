@@ -25,6 +25,9 @@ struct TimelineScreenView: View {
                         },
                         didTapLikeClosure: { tweetItemModel in
                             store.send(.didTapLike(tweetItemModel))
+                        },
+                        didTapShareClosure: { tweetItemModel in
+                            store.send(.didTapShare(tweetItemModel))
                         }
                     )
                 }
@@ -74,11 +77,17 @@ struct TweetList: View {
     let tweetItemModels: [TweetItemModel]
     let didTapRetweetClosure: (TweetItemModel) -> Void
     let didTapLikeClosure: (TweetItemModel) -> Void
+    let didTapShareClosure: (TweetItemModel) -> Void
 
     var body: some View {
         VStack {
             ForEach(tweetItemModels, id: \.tweet.id) { tweetItemModel in
-                TweetItemView(tweetItemModel: tweetItemModel, didTapRetweetClosure: didTapRetweetClosure, didTapLikeClosure: didTapLikeClosure)
+                TweetItemView(
+                    tweetItemModel: tweetItemModel,
+                    didTapRetweetClosure: didTapRetweetClosure,
+                    didTapLikeClosure: didTapLikeClosure,
+                    didTapShareClosure: didTapShareClosure
+                )
                     .padding(.horizontal, 16)
             }
         }
@@ -89,6 +98,7 @@ struct TweetItemView: View {
     let tweetItemModel: TweetItemModel
     let didTapRetweetClosure: (TweetItemModel) -> Void
     let didTapLikeClosure: (TweetItemModel) -> Void
+    let didTapShareClosure: (TweetItemModel) -> Void
 
     var body: some View {
         HStack(alignment: .top) {
@@ -108,7 +118,8 @@ struct TweetItemView: View {
                     isRetweet: tweetItemModel.tweet.isRetweet,
                     isLike: tweetItemModel.tweet.isLike,
                     didTapRetweetClosure: { didTapRetweetClosure(tweetItemModel) },
-                    didTapLikeClosure: { didTapLikeClosure(tweetItemModel) }
+                    didTapLikeClosure: { didTapLikeClosure(tweetItemModel) },
+                    didTapShareClosure: { didTapShareClosure(tweetItemModel) }
                 )
             }
         }
@@ -150,6 +161,7 @@ struct TweetItemView: View {
         let isLike: Bool
         let didTapRetweetClosure: () -> Void
         let didTapLikeClosure: () -> Void
+        let didTapShareClosure: () -> Void
 
         var body: some View {
             HStack {
@@ -172,7 +184,9 @@ struct TweetItemView: View {
                         .tint(isLike ? .pink : .primary)
                 }
                 Spacer()
-                Button {} label: {
+                Button {
+                    didTapShareClosure()
+                } label: {
                     Image(systemName: "square.and.arrow.up")
                         .tint(.primary)
                 }

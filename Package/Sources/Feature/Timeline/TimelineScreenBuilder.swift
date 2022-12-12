@@ -22,11 +22,23 @@ public enum TimelineScreenBuilder {
                 apiClient: APIClientMock()
             )
         )
+
         let hostingVc = TimelineScreenViewHostingViewController(
             store: store.noSendRoute
         ) { store in
                 TimelineScreenView(store: store)
         }
+
+
+        store.subscribeRoutes { routeType in
+            switch routeType {
+            case let .showShareActivity(text, url):
+                let activityVC = UIActivityViewController(activityItems: [text, url], applicationActivities: nil)
+                hostingVc.present(activityVC, animated: true, completion: nil)
+            }
+        }
+
+
         return hostingVc
     }
 }
