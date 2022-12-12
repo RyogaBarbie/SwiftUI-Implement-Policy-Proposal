@@ -3,9 +3,10 @@ import Model
 /// ViewComponentModel
 struct TweetItemModel: Sendable, Equatable {
     var tweet: Tweet
+    var isLoadingUserImage: Bool = true
 
     static func == (lhs: TweetItemModel, rhs: TweetItemModel) -> Bool {
-        lhs.tweet == rhs.tweet
+        (lhs.tweet == rhs.tweet) && (lhs.isLoadingUserImage == rhs.isLoadingUserImage)
     }
 }
 

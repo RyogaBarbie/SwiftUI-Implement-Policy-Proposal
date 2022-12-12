@@ -20,6 +20,8 @@ enum TimelineScreenViewModel {
         case didTapRetweet(TweetItemModel)
         case didTapLike(TweetItemModel)
         case didTapShare(TweetItemModel)
+        case loadImage(TweetItemModel)
+        case setImage(TweetItemModel)
     }
 
     enum RouteType: Sendable {
@@ -84,6 +86,27 @@ enum TimelineScreenViewModel {
                         )
                     )
                 }
+
+            case let .loadImage(tweetItemModel):
+                guard let index = state.tweetItemModels.firstIndex(where: { model in
+                    model == tweetItemModel
+                }) else { return .empty }
+
+                state.tweetItemModels[index].isLoadingUserImage = true
+
+                return Effect {
+                    let randomSec = Int.random(in: 0...5)
+                    _ = try! await Task.sleep(nanoseconds: UInt64(1_000_000_000 * randomSec))
+                    return .setImage(tweetItemModel)
+                }
+
+            case let .setImage(tweetItemModel):
+                guard let index = state.tweetItemModels.firstIndex(where: { model in
+                    model == tweetItemModel
+                }) else { return .empty }
+
+                state.tweetItemModels[index].isLoadingUserImage = false
+                return .empty
 
             }
         }

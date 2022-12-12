@@ -28,6 +28,9 @@ struct TimelineScreenView: View {
                         },
                         didTapShareClosure: { tweetItemModel in
                             store.send(.didTapShare(tweetItemModel))
+                        },
+                        loadUserImageClosure: { tweetItemModel in
+                            store.send(.loadImage(tweetItemModel))
                         }
                     )
                 }
@@ -78,6 +81,7 @@ struct TweetList: View {
     let didTapRetweetClosure: (TweetItemModel) -> Void
     let didTapLikeClosure: (TweetItemModel) -> Void
     let didTapShareClosure: (TweetItemModel) -> Void
+    let loadUserImageClosure: (TweetItemModel) -> Void
 
     var body: some View {
         VStack {
@@ -86,7 +90,8 @@ struct TweetList: View {
                     tweetItemModel: tweetItemModel,
                     didTapRetweetClosure: didTapRetweetClosure,
                     didTapLikeClosure: didTapLikeClosure,
-                    didTapShareClosure: didTapShareClosure
+                    didTapShareClosure: didTapShareClosure,
+                    loadUserImageClosure: loadUserImageClosure
                 )
                     .padding(.horizontal, 16)
             }
@@ -99,10 +104,17 @@ struct TweetItemView: View {
     let didTapRetweetClosure: (TweetItemModel) -> Void
     let didTapLikeClosure: (TweetItemModel) -> Void
     let didTapShareClosure: (TweetItemModel) -> Void
+    let loadUserImageClosure: (TweetItemModel) -> Void
 
     var body: some View {
         HStack(alignment: .top) {
-            UserIconView(imageName: tweetItemModel.tweet.user.imageName)
+            UserIconView(
+                imageName: tweetItemModel.tweet.user.imageName,
+                isLoading: tweetItemModel.isLoadingUserImage
+            )
+            .onAppear {
+                loadUserImageClosure(tweetItemModel)
+            }
             VStack(alignment: .leading) {
                 UserSectionView(
                     userName: tweetItemModel.tweet.user.name,
@@ -129,12 +141,19 @@ struct TweetItemView: View {
     
     struct UserIconView: View {
         let imageName: String
-        var body: some View {
-            Image(imageName)
-                .resizable()
-                .frame(width: 50, height: 50)
-                .cornerRadius(25)
+        let isLoading: Bool
 
+        var body: some View {
+            if isLoading {
+                Color.gray
+                    .frame(width: 50, height: 50)
+                    .cornerRadius(25)
+            } else {
+                Image(imageName)
+                    .resizable()
+                    .frame(width: 50, height: 50)
+                    .cornerRadius(25)
+            }
         }
     }
     

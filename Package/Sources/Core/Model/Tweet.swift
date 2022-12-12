@@ -34,6 +34,13 @@ extension Tweet {
             .eiko(), .eiko(),
             .tomoya(), .tomoya(),
             .tori(), .tori(),
+            .ryoma(), .ryoma(),
+            .ariyoshi(), .ariyoshi(),
+            .matsumoto(), .matsumoto(),
+            .nobu(), .nobu(),
+            .eiko(), .eiko(),
+            .tomoya(), .tomoya(),
+            .tori(), .tori(),
             .ryoma(), .ryoma()
         ].shuffled().shuffled().shuffled()
     }
