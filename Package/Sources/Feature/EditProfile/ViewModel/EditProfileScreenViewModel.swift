@@ -14,6 +14,7 @@ final class EditProfileScreenViewModel: ObservableObject {
     }
 
     struct State: Sendable {
+        
     }
 
     struct Environment: Sendable {

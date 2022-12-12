@@ -10,6 +10,37 @@ struct EditProfileScreenView: View {
     }
     
     var body: some View {
-        Text("プロフィール変更")
+        VStack {
+            UserImageSectionView(hasUserCoverImage: false, userImageUrl: vm.state., userCoverImageUrl: <#T##URL#>)
+        }
+    }
+
+    struct UserImageSectionView: View {
+        let hasUserCoverImage: Bool
+        let userImageUrl: URL
+        let userCoverImageUrl: URL
+
+        var body: some View {
+            UserCoverImageView(hasUserCoverImage: hasUserCoverImage)
+
+        }
+
+        struct UserCoverImageView: View {
+            let hasUserCoverImage: Bool
+
+            var body: some View {
+                if hasUserCoverImage {
+                    Image("userCoverImage")
+                        .resizable()
+                        .frame(height: 120)
+                } else {
+                    Color.gray
+                        .frame(height: 120)
+                        .overlay(alignment: .center) {
+                            Image(systemName: "camera")
+                        }
+                }
+            }
+        }
     }
 }

@@ -11,6 +11,7 @@ public struct User: Sendable, Equatable {
     public var introduction: String
     public var birthDay: String?
     public let imageName: String
+    public var hasCoverImage: Bool = false
     public var isFollow: FollowState?
     
     public init(id: String, name: String, introduction: String, birthDay: String?, imageName: String, isFollow: FollowState? = nil) {

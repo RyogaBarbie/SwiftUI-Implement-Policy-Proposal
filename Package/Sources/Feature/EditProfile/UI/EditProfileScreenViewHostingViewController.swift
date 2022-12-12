@@ -21,6 +21,8 @@ class EditProfileScreenViewHostingViewController: UIHostingController<EditProfil
         super.viewDidLoad()
 
         navigationItem.title = "プロフィールの変更"
+        let rightButton = UIBarButtonItem(title: "保存", style: .done, target: self, action: nil)
+        navigationItem.setRightBarButton(rightButton, animated: false)
     }
 }
 
