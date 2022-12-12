@@ -18,7 +18,15 @@ struct TimelineScreenView: View {
                     }
             } else {
                 ScrollView {
-                    TweetList(tweetItemModels: viewStore.state.tweetItemModels)
+                    TweetList(
+                        tweetItemModels: viewStore.state.tweetItemModels,
+                        didTapRetweetClosure: { tweetItemModel in
+                            store.send(.didTapRetweet(tweetItemModel))
+                        },
+                        didTapLikeClosure: { tweetItemModel in
+                            store.send(.didTapLike(tweetItemModel))
+                        }
+                    )
                 }
                 .refreshable {
                     store.send(.refresh)
@@ -64,11 +72,13 @@ struct TimelineScreenView: View {
 
 struct TweetList: View {
     let tweetItemModels: [TweetItemModel]
+    let didTapRetweetClosure: (TweetItemModel) -> Void
+    let didTapLikeClosure: (TweetItemModel) -> Void
 
     var body: some View {
         VStack {
             ForEach(tweetItemModels, id: \.tweet.id) { tweetItemModel in
-                TweetItemView(tweetItemModel: tweetItemModel)
+                TweetItemView(tweetItemModel: tweetItemModel, didTapRetweetClosure: didTapRetweetClosure, didTapLikeClosure: didTapLikeClosure)
                     .padding(.horizontal, 16)
             }
         }
@@ -77,6 +87,8 @@ struct TweetList: View {
 
 struct TweetItemView: View {
     let tweetItemModel: TweetItemModel
+    let didTapRetweetClosure: (TweetItemModel) -> Void
+    let didTapLikeClosure: (TweetItemModel) -> Void
 
     var body: some View {
         HStack(alignment: .top) {
@@ -92,7 +104,12 @@ struct TweetItemView: View {
                     .fontWeight(.light)
                     .font(Font.system(size: 16))
                 Spacer().frame(height: 10)
-                ReactionSectionView()
+                ReactionSectionView(
+                    isRetweet: tweetItemModel.tweet.isRetweet,
+                    isLike: tweetItemModel.tweet.isLike,
+                    didTapRetweetClosure: { didTapRetweetClosure(tweetItemModel) },
+                    didTapLikeClosure: { didTapLikeClosure(tweetItemModel) }
+                )
             }
         }
         Spacer().frame(height: 15)
@@ -129,6 +146,11 @@ struct TweetItemView: View {
     }
 
     struct ReactionSectionView: View {
+        let isRetweet: Bool
+        let isLike: Bool
+        let didTapRetweetClosure: () -> Void
+        let didTapLikeClosure: () -> Void
+
         var body: some View {
             HStack {
                 Button {} label: {
@@ -136,14 +158,18 @@ struct TweetItemView: View {
                         .tint(.primary)
                 }
                 Spacer()
-                Button {} label: {
+                Button {
+                    didTapRetweetClosure()
+                } label: {
                     Image(systemName: "arrow.2.squarepath")
-                        .tint(.primary)
+                        .tint( isRetweet ? .green : .primary)
                 }
                 Spacer()
-                Button {} label: {
+                Button {
+                    didTapLikeClosure()
+                } label: {
                     Image(systemName: "heart")
-                        .tint(.primary)
+                        .tint(isLike ? .pink : .primary)
                 }
                 Spacer()
                 Button {} label: {

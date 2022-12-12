@@ -16,6 +16,8 @@ enum TimelineScreenViewModel {
         case refresh
         case _fetchTweets
         case _convertTweetItemModelAndSet([Tweet])
+        case didTapRetweet(TweetItemModel)
+        case didTapLike(TweetItemModel)
     }
 
     enum RouteType: Sendable {}
@@ -49,6 +51,24 @@ enum TimelineScreenViewModel {
             case let ._convertTweetItemModelAndSet(tweets):
                 state.tweetItemModels = TweetItemModel.bulkConvert(tweets)
                 state.isLoadingFetchTweets = false
+                return .empty
+
+            case let .didTapRetweet(tweetItemModel):
+                // 本来はAPIを叩く
+                guard let index = state.tweetItemModels.firstIndex(where: { model in
+                    model == tweetItemModel
+                }) else { return .empty}
+
+                state.tweetItemModels[index].tweet.isRetweet.toggle()
+                return .empty
+
+            case let .didTapLike(tweetItemModel):
+                // 本来はAPIを叩く
+                guard let index = state.tweetItemModels.firstIndex(where: { model in
+                    model == tweetItemModel
+                }) else { return .empty}
+
+                state.tweetItemModels[index].tweet.isLike.toggle()
                 return .empty
 
             }

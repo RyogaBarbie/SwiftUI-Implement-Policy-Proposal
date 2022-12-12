@@ -5,7 +5,7 @@ struct TweetItemModel: Sendable, Equatable {
     var tweet: Tweet
 
     static func == (lhs: TweetItemModel, rhs: TweetItemModel) -> Bool {
-        lhs.tweet.id == rhs.tweet.id
+        lhs.tweet == rhs.tweet
     }
 }
 
