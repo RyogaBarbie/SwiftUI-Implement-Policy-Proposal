@@ -101,7 +101,7 @@ struct EditProfileScreenView: View {
                         ErrorMessageView(text: errorMessage)
                             .padding(.horizontal, 16)
                     }
-                    IdFormView(id: id, updateClosure: updateIdClosure)
+                    IdFormItemView(id: id, updateClosure: updateIdClosure)
                         .padding(.horizontal, 16)
                 }
 
@@ -112,73 +112,73 @@ struct EditProfileScreenView: View {
                         ErrorMessageView(text: errorMessage)
                             .padding(.horizontal, 16)
                     }
-                    NameFormView(name: name, updateClosure: updateNameClosure)
+                    NameFormItemView(name: name, updateClosure: updateNameClosure)
                         .padding(.horizontal, 16)
                 }
 
                 Divider()
 
-                IntroductionFormView(introduction: introduction, updateClosure: updateIntroductionClosure)
+                IntroductionFormItemView(introduction: introduction, updateClosure: updateIntroductionClosure)
                     .padding(.horizontal, 16)
 
                 Divider()
 
-                BirthDayFormView(birthDay: birthDay, updateClosure: updateBirthDayClosure)
+                BirthDayFormItemView(birthDay: birthDay, updateClosure: updateBirthDayClosure)
                     .padding(.horizontal, 16)
 
                 Divider()
             }
         }
 
-        struct IdFormView: View {
+        struct IdFormItemView: View {
             let id: String
             let updateClosure: (String) -> Void
             var body: some View {
                 HStack {
-                    LabelView(text: "ID")
+                    FormLabelView(text: "ID")
                     TextField("5文字以上で設定してください", text: Binding(get: { id }, set: { updateClosure($0) }))
                 }
             }
         }
 
-        struct NameFormView: View {
+        struct NameFormItemView: View {
             let name: String
             let updateClosure: (String) -> Void
 
             var body: some View {
                 HStack {
-                    LabelView(text: "名前")
+                    FormLabelView(text: "名前")
                     TextField("2文字以上で設定してください", text: Binding(get: { name }, set: { updateClosure($0) }))
                 }
             }
         }
 
-        struct IntroductionFormView: View {
+        struct IntroductionFormItemView: View {
             let introduction: String
             let updateClosure: (String) -> Void
 
             var body: some View {
                 HStack {
-                    LabelView(text: "自己紹介")
+                    FormLabelView(text: "自己紹介")
                     TextField("自分の特徴やら何らかの情報を入力してね", text: Binding(get: { introduction }, set: { updateClosure($0) }), axis: .vertical)
                         .lineLimit(5)
                 }
             }
         }
 
-        struct BirthDayFormView: View {
+        struct BirthDayFormItemView: View {
             let birthDay: String?
             let updateClosure: (String) -> Void
 
             var body: some View {
                 HStack {
-                    LabelView(text: "誕生日")
+                    FormLabelView(text: "誕生日")
                     TextField("", text: Binding(get: { birthDay ?? "" }, set: { updateClosure($0) }))
                 }
             }
         }
 
-        struct LabelView: View {
+        struct FormLabelView: View {
             let text: String
             var body: some View {
                 HStack {
