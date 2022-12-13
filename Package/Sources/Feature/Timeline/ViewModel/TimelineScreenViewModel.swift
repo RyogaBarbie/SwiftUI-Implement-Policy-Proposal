@@ -88,6 +88,8 @@ enum TimelineScreenViewModel {
                 }
 
             case let .loadImage(tweetItemModel):
+                // 本来は個別のtweetに紐づく何かをapiから取得しsetするイメージ
+                // サンプル用に画像でやってます
                 guard let index = state.tweetItemModels.firstIndex(where: { model in
                     model == tweetItemModel
                 }) else { return .empty }
