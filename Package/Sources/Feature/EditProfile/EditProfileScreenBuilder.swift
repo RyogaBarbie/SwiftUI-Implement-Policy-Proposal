@@ -1,11 +1,13 @@
 import Foundation
 import UIKit
+import API
 
 public enum EditProfileScreenBuilder {
     @MainActor public static func build(
-        notificationCenter: NotificationCenter
+        notificationCenter: NotificationCenter,
+        apiClient: APIClientProtocol
     ) -> UIViewController {
-        let vm = EditProfileScreenViewModel(state: .init(), environment: .init(notificationCenter: notificationCenter))
+        let vm = EditProfileScreenViewModel(state: .init(), environment: .init(notificationCenter: notificationCenter, apiClient: apiClient))
         let view = EditProfileScreenView(vm: vm)
         let hostingVc = EditProfileScreenViewHostingViewController(view, viewModel: vm)
 

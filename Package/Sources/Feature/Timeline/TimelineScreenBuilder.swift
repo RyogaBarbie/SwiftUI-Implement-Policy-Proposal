@@ -4,22 +4,14 @@ import Model
 
 public enum TimelineScreenBuilder {
     @MainActor
-    public static func build() -> UIViewController {
-        actor APIClientMock: APIClientProtocol {
-            func fetchTweets() async -> [Tweet] {
-                try! await Task.sleep(nanoseconds: 1_500_000_000)
-                return Tweet.sample()
-            }
-
-            func fetchUser() async -> User {
-                return User.eiko()
-            }
-        }
+    public static func build(
+        apiClient: APIClientProtocol
+    ) -> UIViewController {
         let store = TimelineScreenViewModel.RouteStore(
             state: .init(tweetItemModels: []),
             reducer: TimelineScreenViewModel.reducer(),
             environment: .init(
-                apiClient: APIClientMock()
+                apiClient: apiClient
             )
         )
 

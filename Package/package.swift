@@ -28,7 +28,7 @@ let package = Package(
     targets: [
         // Core
         .target(name: "Model", path: "Sources/Core/Model"),
-        .target(name: "API", path: "Sources/Core/API"),
+        .target(name: "API", dependencies: ["Model"], path: "Sources/Core/API"),
         .target(name: "FeatureInterface", path: "Sources/Core/FeatureInterface"),
         .target(name: "FeatureProvider", dependencies: ["Model", "FeatureInterface"], path: "Sources/Core/FeatureProvider"),
 
