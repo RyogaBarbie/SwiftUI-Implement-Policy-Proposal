@@ -8,7 +8,7 @@ enum TimelineScreenViewModel {
     struct State: Sendable, Equatable {
         var isLoadingFetchTweets: Bool = true
         var isPresentedTweetView: Bool = false
-        var tweetItemModels: [TweetItemModel]
+        var tweetItemModels: [TweetItemViewData]
     }
 
     enum Action: Sendable {
@@ -16,12 +16,12 @@ enum TimelineScreenViewModel {
         case onAppear
         case refresh
         case _fetchTweets
-        case _convertTweetItemModelAndSet([Tweet])
-        case didTapRetweet(TweetItemModel)
-        case didTapLike(TweetItemModel)
-        case didTapShare(TweetItemModel)
-        case loadImage(TweetItemModel)
-        case setImage(TweetItemModel)
+        case _convertTweetItemViewDataAndSet([Tweet])
+        case didTapRetweet(TweetItemViewData)
+        case didTapLike(TweetItemViewData)
+        case didTapShare(TweetItemViewData)
+        case loadImage(TweetItemViewData)
+        case setImage(TweetItemViewData)
     }
 
     enum RouteType: Sendable {
@@ -51,11 +51,11 @@ enum TimelineScreenViewModel {
             case ._fetchTweets:
                 return Effect {
                     let tweets = await routeEnvironment.environment.apiClient.fetchTweets()
-                    return ._convertTweetItemModelAndSet(tweets)
+                    return ._convertTweetItemViewDataAndSet(tweets)
                 }
 
-            case let ._convertTweetItemModelAndSet(tweets):
-                state.tweetItemModels = TweetItemModel.bulkConvert(tweets)
+            case let ._convertTweetItemViewDataAndSet(tweets):
+                state.tweetItemModels = TweetItemViewData.bulkConvert(tweets)
                 state.isLoadingFetchTweets = false
                 return .empty
 

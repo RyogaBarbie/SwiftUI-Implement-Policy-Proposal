@@ -77,11 +77,11 @@ struct TimelineScreenView: View {
 }
 
 struct TweetList: View {
-    let tweetItemModels: [TweetItemModel]
-    let didTapRetweetClosure: (TweetItemModel) -> Void
-    let didTapLikeClosure: (TweetItemModel) -> Void
-    let didTapShareClosure: (TweetItemModel) -> Void
-    let loadUserImageClosure: (TweetItemModel) -> Void
+    let tweetItemModels: [TweetItemViewData]
+    let didTapRetweetClosure: (TweetItemViewData) -> Void
+    let didTapLikeClosure: (TweetItemViewData) -> Void
+    let didTapShareClosure: (TweetItemViewData) -> Void
+    let loadUserImageClosure: (TweetItemViewData) -> Void
 
     var body: some View {
         VStack {
@@ -100,11 +100,11 @@ struct TweetList: View {
 }
 
 struct TweetItemView: View {
-    let tweetItemModel: TweetItemModel
-    let didTapRetweetClosure: (TweetItemModel) -> Void
-    let didTapLikeClosure: (TweetItemModel) -> Void
-    let didTapShareClosure: (TweetItemModel) -> Void
-    let loadUserImageClosure: (TweetItemModel) -> Void
+    let tweetItemModel: TweetItemViewData
+    let didTapRetweetClosure: (TweetItemViewData) -> Void
+    let didTapLikeClosure: (TweetItemViewData) -> Void
+    let didTapShareClosure: (TweetItemViewData) -> Void
+    let loadUserImageClosure: (TweetItemViewData) -> Void
 
     var body: some View {
         HStack(alignment: .top) {
