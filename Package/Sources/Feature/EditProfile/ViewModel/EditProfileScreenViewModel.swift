@@ -30,11 +30,13 @@ final class EditProfileScreenViewModel: ObservableObject {
         case updateIntroduction(String)
         case setIsPresentBirthDayPickerView(Bool)
         case updateBirthDay(String)
+        case _validateUser
         case didTapSave
     }
 
-    enum RouteType: Sendable {
-        case myProfile
+    enum Output: Sendable {
+        case routeTomyProfile
+        case setIsEnableSaveButton(Bool)
     }
 
     func send(_ action: Action) {
@@ -50,15 +52,11 @@ final class EditProfileScreenViewModel: ObservableObject {
 
         case let .updateId(value):
             state.editProfileViewData?.id = value
-
-            let errorMessage: String? = validateId(value) ? nil : "5文字以上で設定してください"
-            state.editProfileViewData?.validatedIdErrorMessage = errorMessage
+            send(._validateUser)
 
         case let .updateName(value):
             state.editProfileViewData?.name = value
-
-            let errorMessage: String? = validateName(value) ? nil : "2文字以上で設定してください"
-            state.editProfileViewData?.validatedNameErrorMessage = errorMessage
+            send(._validateUser)
 
         case let .updateIntroduction(value):
             state.editProfileViewData?.introduction = value
@@ -68,11 +66,30 @@ final class EditProfileScreenViewModel: ObservableObject {
             
         case let .updateBirthDay(value):
             state.editProfileViewData?.birthDay = value
+            
+        case ._validateUser:
+            guard let editProfileViewData = state.editProfileViewData else { return }
+
+            let errorMessageForId: String? = validateId(editProfileViewData.id) ? nil : "5文字以上で設定してください"
+            state.editProfileViewData?.validatedIdErrorMessage = errorMessageForId
+
+            let errorMessageForName: String? = validateName(editProfileViewData.name) ? nil : "2文字以上で設定してください"
+            state.editProfileViewData?.validatedNameErrorMessage = errorMessageForName
+            
+            let isEnableSaveButton = (errorMessageForId == nil && errorMessageForName == nil)
+            
+            // Navigation周りもSwiftUIで実装する場合
+            // state.editProfileViewData?.isEnableSaveButton = isEnableSaveButton
+            
+            environment.notificationCenter.post(
+                name: Notification.Name.editProfileOutput,
+                object: Output.setIsEnableSaveButton(isEnableSaveButton)
+            )
 
         case .didTapSave:
-            self.environment.notificationCenter.post(
-                name: Notification.Name.editProfileRouteType,
-                object: RouteType.myProfile
+            environment.notificationCenter.post(
+                name: Notification.Name.editProfileOutput,
+                object: Output.routeTomyProfile
             )
         }
     }

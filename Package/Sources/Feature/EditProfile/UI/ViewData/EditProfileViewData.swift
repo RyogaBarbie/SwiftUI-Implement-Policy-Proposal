@@ -9,7 +9,6 @@ struct EditProfileViewData: Sendable, Equatable {
     var imageName: String
     var validatedIdErrorMessage: String? = nil
     var validatedNameErrorMessage: String? = nil
-    var isEnableSaveButton: Bool = true
     var isPresentBirthDayPickerView: Bool = false
     let birthDayOptions: [String] = {
         let format = Date.FormatStyle().locale(Locale(identifier: "ja_JP"))
@@ -21,6 +20,8 @@ struct EditProfileViewData: Sendable, Equatable {
         }
         return values
     }()
+    // Navigation周りもSwiftUIで実装する場合
+    var isEnableSaveButton: Bool = true
 }
 
 

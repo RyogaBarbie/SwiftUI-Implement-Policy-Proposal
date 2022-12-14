@@ -12,10 +12,16 @@ public enum EditProfileScreenBuilder {
         let hostingVc = EditProfileScreenViewHostingViewController(view, viewModel: vm)
 
         Task { @MainActor in
-            for await notification in notificationCenter.notifications(named: Notification.Name.editProfileRouteType, object: nil) {
-                if case .myProfile = notification.object as? EditProfileScreenViewModel.RouteType {
-                    // impl 画面遷移
+            for await notification in notificationCenter.notifications(named: Notification.Name.editProfileOutput, object: nil) {
+                
+                switch notification.object as? EditProfileScreenViewModel.Output {
+                case .routeTomyProfile:
+                    debugPrint("ユーザープロフィールに遷移します")
+                case let .setIsEnableSaveButton(bool):
+                    hostingVc.setIsEnableSaveButton(bool)
+                case .none: break
                 }
+
             }
         }
 

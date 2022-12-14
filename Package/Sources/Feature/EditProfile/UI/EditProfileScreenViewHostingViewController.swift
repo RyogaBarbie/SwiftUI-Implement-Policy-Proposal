@@ -4,6 +4,7 @@ import SwiftUI
 class EditProfileScreenViewHostingViewController: UIHostingController<EditProfileScreenView> {
 
     private let viewModel: EditProfileScreenViewModel
+    private let rightButton = UIBarButtonItem(title: "保存", style: .done, target: EditProfileScreenViewHostingViewController.self, action: nil)
 
     init(
         _ view: EditProfileScreenView,
@@ -21,8 +22,11 @@ class EditProfileScreenViewHostingViewController: UIHostingController<EditProfil
         super.viewDidLoad()
 
         navigationItem.title = "プロフィールの変更"
-        let rightButton = UIBarButtonItem(title: "保存", style: .done, target: self, action: nil)
         navigationItem.setRightBarButton(rightButton, animated: false)
+    }
+    
+    func setIsEnableSaveButton(_ bool: Bool) {
+        rightButton.isEnabled = bool
     }
 }
 
