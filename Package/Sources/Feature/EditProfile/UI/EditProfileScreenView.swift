@@ -16,7 +16,8 @@ struct EditProfileScreenView: View {
                 updateIdClosure: { vm.send(.updateId($0)) },
                 updateNameClosure: { vm.send(.updateName($0)) },
                 updateIntroductionClosure: { vm.send(.updateIntroduction($0)) },
-                updateBirthDayClosure: { vm.send(.updateBirthDay($0)) }
+                updateBirthDayClosure: { vm.send(.updateBirthDay($0)) },
+                setIsPresentBirthDayPickerViewClosure: { value in vm.send(.setIsPresentBirthDayPickerView(value)) }
             )
         } else {
             ProgressView()
@@ -33,6 +34,7 @@ struct EditProfileScreenView: View {
         let updateNameClosure: (String) -> Void
         let updateIntroductionClosure: (String) -> Void
         let updateBirthDayClosure: (String) -> Void
+        let setIsPresentBirthDayPickerViewClosure: (Bool) -> Void
 
         var body: some View {
             VStack {
@@ -52,11 +54,27 @@ struct EditProfileScreenView: View {
                     introduction: editProfileViewData.introduction,
                     updateIntroductionClosure: updateIntroductionClosure,
                     birthDay: editProfileViewData.birthDay,
-                    updateBirthDayClosure: updateBirthDayClosure
+                    updateBirthDayClosure: updateBirthDayClosure,
+                    birthDayOptions: editProfileViewData.birthDayOptions,
+                    isPresentBirthDayPickerView: editProfileViewData.isPresentBirthDayPickerView,
+                    setIsPresentBirthDayPickerViewClosure: setIsPresentBirthDayPickerViewClosure
                 )
 
                 Spacer()
             }
+            .sheet(isPresented: Binding(get: {
+                editProfileViewData.isPresentBirthDayPickerView
+            }, set: { newValue in
+                setIsPresentBirthDayPickerViewClosure(newValue)
+            }), content: {
+                BirthDayPickerView(
+                    birthDayOptions: editProfileViewData.birthDayOptions,
+                    birthDay: editProfileViewData.birthDay,
+                    updateClosure: updateBirthDayClosure,
+                    setIsPresentClosure: setIsPresentBirthDayPickerViewClosure
+                )
+                .presentationDetents([.fraction(0.4)])
+            })
         }
     }
 
@@ -91,6 +109,9 @@ struct EditProfileScreenView: View {
 
         let birthDay: String?
         let updateBirthDayClosure: (String) -> Void
+        let birthDayOptions: [String]
+        let isPresentBirthDayPickerView: Bool
+        let setIsPresentBirthDayPickerViewClosure: (Bool) -> Void
 
         var body: some View {
             VStack(alignment: .leading) {
@@ -123,7 +144,13 @@ struct EditProfileScreenView: View {
 
                 Divider()
 
-                BirthDayFormItemView(birthDay: birthDay, updateClosure: updateBirthDayClosure)
+                BirthDayFormItemView(
+                    birthDayOptions: birthDayOptions,
+                    birthDay: birthDay,
+                    updateClosure: updateBirthDayClosure,
+                    isPresentBirthDayPickerView: isPresentBirthDayPickerView,
+                    setIsPresentBirthDayPickerViewClosure: setIsPresentBirthDayPickerViewClosure
+                )
                     .padding(.horizontal, 16)
 
                 Divider()
@@ -167,13 +194,19 @@ struct EditProfileScreenView: View {
         }
 
         struct BirthDayFormItemView: View {
+            let birthDayOptions: [String]
             let birthDay: String?
             let updateClosure: (String) -> Void
+            let isPresentBirthDayPickerView: Bool
+            let setIsPresentBirthDayPickerViewClosure: (Bool) -> Void
 
             var body: some View {
                 HStack {
                     FormLabelView(text: "誕生日")
-                    TextField("", text: Binding(get: { birthDay ?? "" }, set: { updateClosure($0) }))
+                    Text(birthDay ?? "")
+                        .onTapGesture {
+                            setIsPresentBirthDayPickerViewClosure(true)
+                        }
                 }
             }
         }
@@ -183,6 +216,7 @@ struct EditProfileScreenView: View {
             var body: some View {
                 HStack {
                     Text(text)
+                        .bold()
                     Spacer()
                 }
                 .frame(width: 80)
@@ -200,5 +234,33 @@ struct EditProfileScreenView: View {
             }
         }
     }
+    
+    struct BirthDayPickerView: View {
+        let birthDayOptions: [String]
+        let birthDay: String?
+        let updateClosure: (String) -> Void
+        let setIsPresentClosure: (Bool) -> Void
 
+        var body: some View {
+            VStack {
+                HStack {
+                    Spacer()
+                    Button {
+                        setIsPresentClosure(false)
+                    } label: {
+                        Image(systemName: "xmark")
+                    }.padding(.trailing, 16)
+                }
+                Picker(
+                    "誕生日",
+                    selection: Binding(get: { birthDay ?? "" }, set: { updateClosure($0) })
+                ) {
+                    ForEach(birthDayOptions, id: \.self) {
+                        Text($0)
+                    }
+                }
+                .pickerStyle(.wheel)
+            }
+        }
+    }
 }

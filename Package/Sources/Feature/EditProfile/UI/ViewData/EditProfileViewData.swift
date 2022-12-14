@@ -1,3 +1,4 @@
+import Foundation
 import Model
 
 struct EditProfileViewData: Sendable, Equatable {
@@ -9,6 +10,17 @@ struct EditProfileViewData: Sendable, Equatable {
     var validatedIdErrorMessage: String? = nil
     var validatedNameErrorMessage: String? = nil
     var isEnableSaveButton: Bool = true
+    var isPresentBirthDayPickerView: Bool = false
+    let birthDayOptions: [String] = {
+        let format = Date.FormatStyle().locale(Locale(identifier: "ja_JP"))
+        var values: [String] = [""]
+        let day = try! Date("2023-01-01 00:00:00", strategy: format)
+        for i in 0...364 {
+            let oneDay = 60 * 60 * 24
+            values.append(day.addingTimeInterval(TimeInterval(oneDay * i)).formatted(.dateTime.locale(Locale(identifier: "ja_JP")).month().day()))
+        }
+        return values
+    }()
 }
 
 

@@ -28,6 +28,7 @@ final class EditProfileScreenViewModel: ObservableObject {
         case updateId(String)
         case updateName(String)
         case updateIntroduction(String)
+        case setIsPresentBirthDayPickerView(Bool)
         case updateBirthDay(String)
         case didTapSave
     }
@@ -62,6 +63,9 @@ final class EditProfileScreenViewModel: ObservableObject {
         case let .updateIntroduction(value):
             state.editProfileViewData?.introduction = value
 
+        case let .setIsPresentBirthDayPickerView(value):
+            state.editProfileViewData?.isPresentBirthDayPickerView = value
+            
         case let .updateBirthDay(value):
             state.editProfileViewData?.birthDay = value
 
