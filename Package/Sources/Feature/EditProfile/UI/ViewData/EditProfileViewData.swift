@@ -2,15 +2,10 @@ import Foundation
 import Model
 
 struct EditProfileViewData: Sendable, Equatable {
-    var id: String
-    var name: String
-    var introduction: String
+    var userFormSectionViewData: UserFormSectionViewData
     var birthDay: String?
     var imageName: String
-
-    var validatedIdErrorMessage: String? = nil
-    var validatedNameErrorMessage: String? = nil
-    var isPresentBirthDayPickerView: Bool = false
+    
     let birthDayOptions: [String] = {
         let format = Date.FormatStyle().locale(Locale(identifier: "ja_JP"))
         var values: [String] = [""]
@@ -21,8 +16,10 @@ struct EditProfileViewData: Sendable, Equatable {
         }
         return values
     }()
+
+    var isPresentBirthDayPickerView: Bool = false
     // Navigation周りもSwiftUIで実装する場合
-    var isEnableSaveButton: Bool = true
+    // var isEnableSaveButton: Bool = true
 
     var isPresentAlert: Bool = false
     var alertMessage: String? = nil
@@ -32,9 +29,11 @@ struct EditProfileViewData: Sendable, Equatable {
 extension EditProfileViewData {
     static func convert(_ user: User) -> EditProfileViewData {
         EditProfileViewData(
-            id: user.id,
-            name: user.name,
-            introduction: user.introduction,
+            userFormSectionViewData: .init(
+                id: user.id,
+                name: user.name,
+                introduction: user.introduction
+            ),
             birthDay: user.birthDay,
             imageName: user.imageName
         )

@@ -52,15 +52,15 @@ final class EditProfileScreenViewModel: ObservableObject {
             }
 
         case let .updateId(value):
-            state.editProfileViewData?.id = value
+            state.editProfileViewData?.userFormSectionViewData.id = value
             send(._validateUser)
 
         case let .updateName(value):
-            state.editProfileViewData?.name = value
+            state.editProfileViewData?.userFormSectionViewData.name = value
             send(._validateUser)
 
         case let .updateIntroduction(value):
-            state.editProfileViewData?.introduction = value
+            state.editProfileViewData?.userFormSectionViewData.introduction = value
 
         case let .setIsPresentBirthDayPickerView(value):
             state.editProfileViewData?.isPresentBirthDayPickerView = value
@@ -71,11 +71,11 @@ final class EditProfileScreenViewModel: ObservableObject {
         case ._validateUser:
             guard let editProfileViewData = state.editProfileViewData else { return }
 
-            let errorMessageForId: String? = validateId(editProfileViewData.id) ? nil : "5文字以上で設定してください"
-            state.editProfileViewData?.validatedIdErrorMessage = errorMessageForId
+            let errorMessageForId: String? = validateId(editProfileViewData.userFormSectionViewData.id) ? nil : "5文字以上で設定してください"
+            state.editProfileViewData?.userFormSectionViewData.validatedIdErrorMessage = errorMessageForId
 
-            let errorMessageForName: String? = validateName(editProfileViewData.name) ? nil : "2文字以上で設定してください"
-            state.editProfileViewData?.validatedNameErrorMessage = errorMessageForName
+            let errorMessageForName: String? = validateName(editProfileViewData.userFormSectionViewData.name) ? nil : "2文字以上で設定してください"
+            state.editProfileViewData?.userFormSectionViewData.validatedNameErrorMessage = errorMessageForName
             
             let isEnableSaveButton = (errorMessageForId == nil && errorMessageForName == nil)
             
@@ -92,9 +92,9 @@ final class EditProfileScreenViewModel: ObservableObject {
 
             Task.detached {
                 let result = await self.environment.apiClient.updateUser(
-                    id: editProfileViewData.id,
-                    name: editProfileViewData.name,
-                    introduction: editProfileViewData.introduction,
+                    id: editProfileViewData.userFormSectionViewData.id,
+                    name: editProfileViewData.userFormSectionViewData.name,
+                    introduction: editProfileViewData.userFormSectionViewData.introduction,
                     birtyDay: editProfileViewData.birthDay
                 )
                 Task { @MainActor in

@@ -12,7 +12,7 @@ struct EditProfileScreenView: View {
     var body: some View {
         if let editProfileViewData = vm.state.editProfileViewData {
             EditProfileView(
-                editProfileViewData: editProfileViewData,
+                viewData: editProfileViewData,
                 updateIdClosure: { vm.send(.updateId($0)) },
                 updateNameClosure: { vm.send(.updateName($0)) },
                 updateIntroductionClosure: { vm.send(.updateIntroduction($0)) },
@@ -29,7 +29,7 @@ struct EditProfileScreenView: View {
     }
 
     struct EditProfileView: View {
-        let editProfileViewData: EditProfileViewData
+        let viewData: EditProfileViewData
 
         let updateIdClosure: (String) -> Void
         let updateNameClosure: (String) -> Void
@@ -42,49 +42,44 @@ struct EditProfileScreenView: View {
             VStack {
                 Spacer().frame(height: 16)
                 
-                UserCoverImageView(userImage: editProfileViewData.imageName)
+                UserCoverImageView(userImage: viewData.imageName)
                 
                 Spacer().frame(height: 24)
-                
-                UserFormsSectionView(
-                    id: editProfileViewData.id,
+                UserFormSectionView(
+                    viewData: viewData.userFormSectionViewData,
+                    birthDay: viewData.birthDay,
+                    birthDayOptions: viewData.birthDayOptions,
                     updateIdClosure: updateIdClosure,
-                    validateIdErrorMessage: editProfileViewData.validatedIdErrorMessage,
-                    name: editProfileViewData.name,
                     updateNameClosure: updateNameClosure,
-                    validateNameErrorMessage: editProfileViewData.validatedNameErrorMessage,
-                    introduction: editProfileViewData.introduction,
                     updateIntroductionClosure: updateIntroductionClosure,
-                    birthDay: editProfileViewData.birthDay,
                     updateBirthDayClosure: updateBirthDayClosure,
-                    birthDayOptions: editProfileViewData.birthDayOptions,
-                    isPresentBirthDayPickerView: editProfileViewData.isPresentBirthDayPickerView,
+                    isPresentBirthDayPickerView: viewData.isPresentBirthDayPickerView,
                     setIsPresentBirthDayPickerViewClosure: setIsPresentBirthDayPickerViewClosure
                 )
                 
                 Spacer()
             }
             .sheet(isPresented: Binding(get: {
-                editProfileViewData.isPresentBirthDayPickerView
+                viewData.isPresentBirthDayPickerView
             }, set: { newValue in
                 setIsPresentBirthDayPickerViewClosure(newValue)
             }), content: {
                 BirthDayPickerView(
-                    birthDayOptions: editProfileViewData.birthDayOptions,
-                    birthDay: editProfileViewData.birthDay,
+                    birthDayOptions: viewData.birthDayOptions,
+                    birthDay: viewData.birthDay,
                     updateClosure: updateBirthDayClosure,
                     setIsPresentClosure: setIsPresentBirthDayPickerViewClosure
                 )
                 .presentationDetents([.fraction(0.4)])
             })
-            .alert("保存", isPresented: Binding(get: { editProfileViewData.isPresentAlert }, set: { newValue in
+            .alert("保存", isPresented: Binding(get: { viewData.isPresentAlert }, set: { newValue in
                 setIsPresentAlertClosure(newValue)
             })) {
                 Button("閉じる") {
                     setIsPresentAlertClosure(false)
                 }
             } message: {
-                Text(editProfileViewData.alertMessage ?? "")
+                Text(viewData.alertMessage ?? "")
             }
         }
     }
@@ -106,21 +101,16 @@ struct EditProfileScreenView: View {
         }
     }
 
-    struct UserFormsSectionView: View {
-        let id: String
-        let updateIdClosure: (String) -> Void
-        let validateIdErrorMessage: String?
-
-        let name: String
-        let updateNameClosure: (String) -> Void
-        let validateNameErrorMessage: String?
-
-        let introduction: String
-        let updateIntroductionClosure: (String) -> Void
-
+    struct UserFormSectionView: View {
+        let viewData: UserFormSectionViewData
         let birthDay: String?
-        let updateBirthDayClosure: (String) -> Void
         let birthDayOptions: [String]
+
+        let updateIdClosure: (String) -> Void
+        let updateNameClosure: (String) -> Void
+        let updateIntroductionClosure: (String) -> Void
+        let updateBirthDayClosure: (String) -> Void
+
         let isPresentBirthDayPickerView: Bool
         let setIsPresentBirthDayPickerViewClosure: (Bool) -> Void
 
@@ -129,28 +119,28 @@ struct EditProfileScreenView: View {
                 Divider()
 
                 Group {
-                    if let errorMessage = validateIdErrorMessage {
+                    if let errorMessage = viewData.validatedIdErrorMessage {
                         ErrorMessageView(text: errorMessage)
                             .padding(.horizontal, 16)
                     }
-                    IdFormItemView(id: id, updateClosure: updateIdClosure)
+                    IdFormItemView(id: viewData.id, updateClosure: updateIdClosure)
                         .padding(.horizontal, 16)
                 }
 
                 Divider()
 
                 Group {
-                    if let errorMessage = validateNameErrorMessage {
+                    if let errorMessage = viewData.validatedNameErrorMessage {
                         ErrorMessageView(text: errorMessage)
                             .padding(.horizontal, 16)
                     }
-                    NameFormItemView(name: name, updateClosure: updateNameClosure)
+                    NameFormItemView(name: viewData.name, updateClosure: updateNameClosure)
                         .padding(.horizontal, 16)
                 }
 
                 Divider()
 
-                IntroductionFormItemView(introduction: introduction, updateClosure: updateIntroductionClosure)
+                IntroductionFormItemView(introduction: viewData.introduction, updateClosure: updateIntroductionClosure)
                     .padding(.horizontal, 16)
 
                 Divider()
