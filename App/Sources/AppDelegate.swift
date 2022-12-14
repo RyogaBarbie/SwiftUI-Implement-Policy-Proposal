@@ -28,6 +28,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 try! await Task.sleep(nanoseconds: 500_000_000)
                 return User.random()
             }
+
+            func updateUser(id: String, name: String, introduction: String, birtyDay: String?) -> User? {
+                if Bool.random() {
+                    return User(id: id, name: name, introduction: introduction, birthDay: birtyDay, imageName: name)
+                } else {
+                    return nil
+                }
+            }
         }
 
         let featureProvider = FeatureProvider(apiClient: APIClientMock())

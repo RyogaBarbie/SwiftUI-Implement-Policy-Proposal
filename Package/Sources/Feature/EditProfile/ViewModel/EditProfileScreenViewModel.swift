@@ -32,6 +32,7 @@ final class EditProfileScreenViewModel: ObservableObject {
         case updateBirthDay(String)
         case _validateUser
         case didTapSave
+        case setIsPresentAlert(Bool)
     }
 
     enum Output: Sendable {
@@ -87,10 +88,33 @@ final class EditProfileScreenViewModel: ObservableObject {
             )
 
         case .didTapSave:
+            guard let editProfileViewData = state.editProfileViewData else { return }
+
+            Task.detached {
+                let result = await self.environment.apiClient.updateUser(
+                    id: editProfileViewData.id,
+                    name: editProfileViewData.name,
+                    introduction: editProfileViewData.introduction,
+                    birtyDay: editProfileViewData.birthDay
+                )
+                Task { @MainActor in
+                    if result != nil {
+                        self.state.editProfileViewData?.alertMessage = "保存しました"
+                    } else {
+                        self.state.editProfileViewData?.alertMessage = "保存に失敗しました"
+                    }
+                    self.state.editProfileViewData?.isPresentAlert = true
+                }
+            }
+
+            // TODO: APIが成功した場合のみpostする
             environment.notificationCenter.post(
                 name: Notification.Name.editProfileOutput,
                 object: Output.routeTomyProfile
             )
+
+        case let .setIsPresentAlert(bool):
+            state.editProfileViewData?.isPresentAlert = bool
         }
     }
 

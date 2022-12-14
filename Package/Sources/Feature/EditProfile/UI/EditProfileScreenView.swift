@@ -17,7 +17,8 @@ struct EditProfileScreenView: View {
                 updateNameClosure: { vm.send(.updateName($0)) },
                 updateIntroductionClosure: { vm.send(.updateIntroduction($0)) },
                 updateBirthDayClosure: { vm.send(.updateBirthDay($0)) },
-                setIsPresentBirthDayPickerViewClosure: { value in vm.send(.setIsPresentBirthDayPickerView(value)) }
+                setIsPresentBirthDayPickerViewClosure: { value in vm.send(.setIsPresentBirthDayPickerView(value)) },
+                setIsPresentAlertClosure: { value in vm.send(.setIsPresentAlert(value))}
             )
         } else {
             ProgressView()
@@ -35,15 +36,16 @@ struct EditProfileScreenView: View {
         let updateIntroductionClosure: (String) -> Void
         let updateBirthDayClosure: (String) -> Void
         let setIsPresentBirthDayPickerViewClosure: (Bool) -> Void
+        let setIsPresentAlertClosure: (Bool) -> Void
 
         var body: some View {
             VStack {
                 Spacer().frame(height: 16)
-
+                
                 UserCoverImageView(userImage: editProfileViewData.imageName)
-
+                
                 Spacer().frame(height: 24)
-
+                
                 UserFormsSectionView(
                     id: editProfileViewData.id,
                     updateIdClosure: updateIdClosure,
@@ -59,7 +61,7 @@ struct EditProfileScreenView: View {
                     isPresentBirthDayPickerView: editProfileViewData.isPresentBirthDayPickerView,
                     setIsPresentBirthDayPickerViewClosure: setIsPresentBirthDayPickerViewClosure
                 )
-
+                
                 Spacer()
             }
             .sheet(isPresented: Binding(get: {
@@ -75,6 +77,15 @@ struct EditProfileScreenView: View {
                 )
                 .presentationDetents([.fraction(0.4)])
             })
+            .alert("保存", isPresented: Binding(get: { editProfileViewData.isPresentAlert }, set: { newValue in
+                setIsPresentAlertClosure(newValue)
+            })) {
+                Button("閉じる") {
+                    setIsPresentAlertClosure(false)
+                }
+            } message: {
+                Text(editProfileViewData.alertMessage ?? "")
+            }
         }
     }
 

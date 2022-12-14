@@ -7,6 +7,7 @@ struct EditProfileViewData: Sendable, Equatable {
     var introduction: String
     var birthDay: String?
     var imageName: String
+
     var validatedIdErrorMessage: String? = nil
     var validatedNameErrorMessage: String? = nil
     var isPresentBirthDayPickerView: Bool = false
@@ -22,6 +23,9 @@ struct EditProfileViewData: Sendable, Equatable {
     }()
     // Navigation周りもSwiftUIで実装する場合
     var isEnableSaveButton: Bool = true
+
+    var isPresentAlert: Bool = false
+    var alertMessage: String? = nil
 }
 
 
