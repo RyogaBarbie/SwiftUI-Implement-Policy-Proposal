@@ -65,7 +65,7 @@ enum TimelineScreenViewModel {
                     model == tweetItemModel
                 }) else { return .empty }
 
-                state.tweetItemModels[index].tweet.isRetweet.toggle()
+                state.tweetItemModels[index].isRetweet.toggle()
                 return .empty
 
             case let .didTapLike(tweetItemModel):
@@ -74,15 +74,15 @@ enum TimelineScreenViewModel {
                     model == tweetItemModel
                 }) else { return .empty }
 
-                state.tweetItemModels[index].tweet.isLike.toggle()
+                state.tweetItemModels[index].isLike.toggle()
                 return .empty
 
             case let .didTapShare(tweetItemModel):
                 return Effect.fireAndForget {
                     routeEnvironment.sendRoute(
                         .showShareActivity(
-                            "\(tweetItemModel.tweet.user.name)さんのツイート",
-                            URL(string: "https://twitter.com/\(tweetItemModel.tweet.user.id)")!
+                            "\(tweetItemModel.userName)さんのツイート",
+                            URL(string: "https://twitter.com/\(tweetItemModel.userId)")!
                         )
                     )
                 }

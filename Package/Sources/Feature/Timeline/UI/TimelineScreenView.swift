@@ -19,7 +19,7 @@ struct TimelineScreenView: View {
             } else {
                 ScrollView {
                     TweetList(
-                        tweetItemModels: viewStore.state.tweetItemModels,
+                        tweetItemViewDatas: viewStore.state.tweetItemModels,
                         didTapRetweetClosure: { tweetItemModel in
                             store.send(.didTapRetweet(tweetItemModel))
                         },
@@ -77,7 +77,7 @@ struct TimelineScreenView: View {
 }
 
 struct TweetList: View {
-    let tweetItemModels: [TweetItemViewData]
+    let tweetItemViewDatas: [TweetItemViewData]
     let didTapRetweetClosure: (TweetItemViewData) -> Void
     let didTapLikeClosure: (TweetItemViewData) -> Void
     let didTapShareClosure: (TweetItemViewData) -> Void
@@ -85,9 +85,9 @@ struct TweetList: View {
 
     var body: some View {
         VStack {
-            ForEach(tweetItemModels, id: \.tweet.id) { tweetItemModel in
+            ForEach(tweetItemViewDatas, id: \.tweetId) { viewData in
                 TweetItemView(
-                    tweetItemModel: tweetItemModel,
+                    viewData: viewData,
                     didTapRetweetClosure: didTapRetweetClosure,
                     didTapLikeClosure: didTapLikeClosure,
                     didTapShareClosure: didTapShareClosure,
@@ -100,7 +100,7 @@ struct TweetList: View {
 }
 
 struct TweetItemView: View {
-    let tweetItemModel: TweetItemViewData
+    let viewData: TweetItemViewData
     let didTapRetweetClosure: (TweetItemViewData) -> Void
     let didTapLikeClosure: (TweetItemViewData) -> Void
     let didTapShareClosure: (TweetItemViewData) -> Void
@@ -109,29 +109,29 @@ struct TweetItemView: View {
     var body: some View {
         HStack(alignment: .top) {
             UserIconView(
-                imageName: tweetItemModel.tweet.user.imageName,
-                isLoading: tweetItemModel.isLoadingUserImage
+                imageName: viewData.userImageName,
+                isLoading: viewData.isLoadingUserImage
             )
             .onAppear {
-                loadUserImageClosure(tweetItemModel)
+                loadUserImageClosure(viewData)
             }
             VStack(alignment: .leading) {
                 UserSectionView(
-                    userName: tweetItemModel.tweet.user.name,
-                    userId: tweetItemModel.tweet.user.id,
-                    postedAt: tweetItemModel.tweet.postedAt
+                    userName: viewData.userName,
+                    userId: viewData.userId,
+                    postedAt: viewData.tweetPostedAt
                 )
                 Spacer().frame(height: 5)
-                Text(tweetItemModel.tweet.text)
+                Text(viewData.tweetText)
                     .fontWeight(.light)
                     .font(Font.system(size: 16))
                 Spacer().frame(height: 10)
                 ReactionSectionView(
-                    isRetweet: tweetItemModel.tweet.isRetweet,
-                    isLike: tweetItemModel.tweet.isLike,
-                    didTapRetweetClosure: { didTapRetweetClosure(tweetItemModel) },
-                    didTapLikeClosure: { didTapLikeClosure(tweetItemModel) },
-                    didTapShareClosure: { didTapShareClosure(tweetItemModel) }
+                    isRetweet: viewData.isRetweet,
+                    isLike: viewData.isLike,
+                    didTapRetweetClosure: { didTapRetweetClosure(viewData) },
+                    didTapLikeClosure: { didTapLikeClosure(viewData) },
+                    didTapShareClosure: { didTapShareClosure(viewData) }
                 )
             }
         }
