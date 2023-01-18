@@ -27,6 +27,10 @@ extension User {
     public static func random() -> User {
         [.ariyoshi(), .matsumoto(), .nobu(), .eiko(), .tomoya(), .tori(), .ryoma()].shuffled().first!
     }
+    
+    public static func ryogabarbie() -> User {
+        User(id: "RyogaBarbie", name: "りょーが", introduction: "dely(クラシル)でiOSエンジニアとiOSのEM\nリアーキテクチャやSwiftConcurrency、SwiftUIでリファクタリングしたりしてます\nSwift/Ruby(Rails)", birthDay: "12月26日", imageName: "RyogaBarbie")
+    }
 
     public static func ariyoshi() -> User {
         User(id: "ariyoshihiroyuki", name: "有吉弘行", introduction: "穏やかに。。。", birthDay: "5月31日", imageName: "ariyoshi")

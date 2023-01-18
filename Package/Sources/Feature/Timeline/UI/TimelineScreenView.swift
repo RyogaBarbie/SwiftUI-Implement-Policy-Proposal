@@ -168,6 +168,7 @@ struct TweetItemView: View {
                     .bold()
                 Text("@" + userId)
                     .fontWeight(.light)
+                    .font(Font.system(size: 14))
                 Text("・" + postedAt)
                     .fontWeight(.light)
                     .font(Font.system(size: 14))
